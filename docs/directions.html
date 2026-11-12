@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PennyPal — Aesthetic Directions</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; background: #ece7dd; color: #211d17; padding: 36px 20px 60px; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .lede { font-size: 13.5px; color: #6b6156; margin-top: 8px; line-height: 1.6; max-width: 70ch; }
+  .stack { display: grid; gap: 22px; margin-top: 26px; }
+  .panel { border-radius: 16px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.14); }
+  .panel__bar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 12px; font-weight: 700; }
+  .rec { background: #2f6f4f; color: #f3efe6; }
+  .safe { background: #3a3f45; color: #e9e6df; }
+  .panel__bar .why { font-weight: 500; opacity: 0.82; margin-left: auto; font-size: 11.5px; }
+
+  /* ---- shared mockup layout ---- */
+  .app { display: grid; grid-template-columns: 190px 1fr; min-height: 340px; }
+  .side { padding: 18px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .brand { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; padding: 0 6px; }
+  .brand__mark { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; }
+  .brand__name { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+  .nav { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 9px; font-size: 12.5px; font-weight: 600; }
+  .nav .dot { width: 5px; height: 5px; border-radius: 50%; margin-left: auto; }
+  .main { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; }
+  .head h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+  .head p { font-size: 11.5px; margin-top: 2px; }
+  .cards { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; }
+  .card { border-radius: 12px; padding: 14px; }
+  .card .lbl { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .card .amt { font-size: 22px; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+  .card .sub { font-size: 11px; margin-top: 4px; }
+  .txns { border-radius: 12px; overflow: hidden; }
+  .txn { display: flex; align-items: center; gap: 11px; padding: 11px 14px; font-size: 12.5px; }
+  .txn + .txn { border-top: 1px solid; }
+  .txn__ico { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .txn__name { font-weight: 600; }
+  .txn__cat { font-size: 10.5px; margin-top: 1px; }
+  .txn__amt { margin-left: auto; font-weight: 700; font-size: 13px; }
+
+  /* ================= DIRECTION 1: PAPER LEDGER (warm light) ================= */
+  .d1 { --canvas:#f6f3ec; --card:#fffdf8; --line:#e6dfd2; --ink:#241f18; --body:#5f574b; --muted:#8b8175;
+        --copper:#b0673a; --copperSoft:#f0e2d6; --pine:#2f6f4f; --pineSoft:#e2ece5; --terra:#b4553c; --terraSoft:#f2e2dc; --ochre:#a9762a; }
+  .d1.app { background: var(--canvas); color: var(--body); }
+  .d1 .side { background: #efeae0; border-right: 1px solid var(--line); }
+  .d1 .brand__mark { background: var(--copper); color: #fff6ee; }
+  .d1 .brand__name { color: var(--ink); font-family: Georgia, 'Times New Roman', serif; }
+  .d1 .nav { color: var(--muted); }
+  .d1 .nav.active { background: var(--card); color: var(--copper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .d1 .nav.active .dot { background: var(--copper); }
+  .d1 .head h2 { color: var(--ink); font-family: Georgia, serif; }
+  .d1 .head p { color: var(--muted); }
+  .d1 .card { background: var(--card); border: 1px solid var(--line); }
+  .d1 .card .lbl { color: var(--muted); }
+  .d1 .card .amt { color: var(--ink); }
+  .d1 .card.balance { background: var(--copper); border-color: var(--copper); }
+  .d1 .card.balance .lbl, .d1 .card.balance .amt, .d1 .card.balance .sub { color: #fdf3ea; }
+  .d1 .card.balance .sub { opacity: 0.82; }
+  .d1 .inc .amt { color: var(--pine); }
+  .d1 .exp .amt { color: var(--terra); }
+  .d1 .txns { background: var(--card); border: 1px solid var(--line); }
+  .d1 .txn + .txn { border-color: var(--line); }
+  .d1 .txn__name { color: var(--ink); }
+  .d1 .txn__cat { color: var(--muted); }
+  .d1 .txn .in .txn__ico, .d1 .ico-in { background: var(--pineSoft); color: var(--pine); }
+  .d1 .ico-out { background: var(--terraSoft); color: var(--terra); }
+  .d1 .ico-fun { background: var(--copperSoft); color: var(--copper); }
+  .d1 .amt-in { color: var(--pine); }
+  .d1 .amt-out { color: var(--ink); }
+
+  /* ================= DIRECTION 2: WARM INK (de-cliché dark) ================= */
+  .d2 { --canvas:#15171a; --side:#101215; --card:#1b1e22; --line:#2a2e34; --ink:#eceae6; --body:#b3b0aa; --muted:#7f837d;
+        --copper:#c8814f; --pine:#83b391; --terra:#d0735a; --ochre:#c99a3f; }
+  .d2.app { background: var(--canvas); color: var(--body); }
+  .d2 .side { background: var(--side); border-right: 1px solid var(--line); }
+  .d2 .brand__mark { background: var(--copper); color: #1a120b; }
+  .d2 .brand__name { color: var(--ink); }
+  .d2 .nav { color: var(--muted); }
+  .d2 .nav.active { background: #20242a; color: var(--copper); border: 1px solid var(--line); }
+  .d2 .nav.active .dot { background: var(--copper); }
+  .d2 .head h2 { color: var(--ink); }
+  .d2 .head p { color: var(--muted); }
+  .d2 .card { background: var(--card); border: 1px solid var(--line); }
+  .d2 .card .lbl { color: var(--muted); }
+  .d2 .card .amt { color: var(--ink); }
+  .d2 .card.balance { background: linear-gradient(0deg,#20242a,#20242a); border-color: #33383f; }
+  .d2 .card.balance .amt { color: var(--copper); }
+  .d2 .inc .amt { color: var(--pine); }
+  .d2 .exp .amt { color: var(--terra); }
+  .d2 .txns { background: var(--card); border: 1px solid var(--line); }
+  .d2 .txn + .txn { border-color: var(--line); }
+  .d2 .txn__name { color: var(--ink); }
+  .d2 .txn__cat { color: var(--muted); }
+  .d2 .ico-in { background: rgba(131,179,145,0.14); color: var(--pine); }
+  .d2 .ico-out { background: rgba(208,115,90,0.14); color: var(--terra); }
+  .d2 .ico-fun { background: rgba(200,129,79,0.16); color: var(--copper); }
+  .d2 .amt-in { color: var(--pine); }
+  .d2 .amt-out { color: var(--ink); }
+
+  .note { font-size: 12px; color: #6b6156; margin-top: 14px; line-height: 1.6; }
+  .swatches { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .sw { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.12); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>PennyPal — two aesthetic directions</h1>
+  <p class="lede">Both kill the generic navy+neon-emerald look and both riff on the brand name — <strong>Penny</strong>Pal → a copper/penny accent. They differ on the one big fork: warm <strong>light</strong> vs. warm <strong>dark</strong>. Same layout, same data — only the identity changes.</p>
+
+  <div class="stack">
+
+    <!-- DIRECTION 1 -->
+    <div class="panel">
+      <div class="panel__bar rec">Direction 1 · “Paper Ledger” — warm light <span class="why">RECOMMENDED · most human/crafted, gives your portfolio range (ClientFlow is dark)</span></div>
+      <div class="app d1">
+        <div class="side">
+          <div class="brand"><div class="brand__mark">P</div><div class="brand__name">PennyPal</div></div>
+          <div class="nav active">Dashboard <span class="dot"></span></div>
+          <div class="nav">Transactions</div>
+          <div class="nav">Analytics</div>
+          <div class="nav">Reports</div>
+          <div class="nav">Settings</div>
+        </div>
+        <div class="main">
+          <div class="head"><div><h2>Good morning, Mitchell</h2><p>Your money, at a glance</p></div></div>
+          <div class="cards">
+            <div class="card balance"><div class="lbl">Total balance</div><div class="amt">₦482,300</div><div class="sub">+₦36,000 this month</div></div>
+            <div class="card inc"><div class="lbl">Income</div><div class="amt">₦250,000</div><div class="sub">Mar 2026</div></div>
+            <div class="card exp"><div class="lbl">Spending</div><div class="amt">₦96,400</div><div class="sub">Mar 2026</div></div>
+          </div>
+          <div class="txns">
+            <div class="txn"><div class="txn__ico ico-in">↗</div><div><div class="txn__name">Salary — Acme Ltd</div><div class="txn__cat">Income</div></div><div class="txn__amt amt-in">+₦250,000</div></div>
+            <div class="txn"><div class="txn__ico ico-out">↙</div><div><div class="txn__name">Shoprite</div><div class="txn__cat">Groceries</div></div><div class="txn__amt amt-out">−₦18,400</div></div>
+            <div class="txn"><div class="txn__ico ico-fun">☕</div><div><div class="txn__name">Café Neo</div><div class="txn__cat">Dining out</div></div><div class="txn__amt amt-out">−₦3,200</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Palette:</strong> warm paper canvas, ink-brown text, copper primary, muted <em>pine</em> green for income (money-green, but sophisticated — not neon), terracotta for spending.
+      <strong> Type:</strong> a soft serif (e.g. Fraunces/Newsreader) for headings + brand, Inter for UI. Feels like Copilot/Monarch — calm, trustworthy, designed.
+      <div class="swatches"><span class="sw" style="background:#f6f3ec"></span><span class="sw" style="background:#b0673a"></span><span class="sw" style="background:#2f6f4f"></span><span class="sw" style="background:#b4553c"></span><span class="sw" style="background:#241f18"></span></div>
+    </div>
+
+    <!-- DIRECTION 2 -->
+    <div class="panel" style="margin-top:22px;">
+      <div class="panel__bar safe">Direction 2 · “Warm Ink” — de-cliché’d dark <span class="why">SAFEST · keeps your dark look, same playbook that worked on ClientFlow</span></div>
+      <div class="app d2">
+        <div class="side">
+          <div class="brand"><div class="brand__mark">P</div><div class="brand__name">PennyPal</div></div>
+          <div class="nav active">Dashboard <span class="dot"></span></div>
+          <div class="nav">Transactions</div>
+          <div class="nav">Analytics</div>
+          <div class="nav">Reports</div>
+          <div class="nav">Settings</div>
+        </div>
+        <div class="main">
+          <div class="head"><div><h2>Good morning, Mitchell</h2><p>Your money, at a glance</p></div></div>
+          <div class="cards">
+            <div class="card balance"><div class="lbl">Total balance</div><div class="amt">₦482,300</div><div class="sub" style="color:var(--muted)">+₦36,000 this month</div></div>
+            <div class="card inc"><div class="lbl">Income</div><div class="amt">₦250,000</div><div class="sub" style="color:var(--muted)">Mar 2026</div></div>
+            <div class="card exp"><div class="lbl">Spending</div><div class="amt">₦96,400</div><div class="sub" style="color:var(--muted)">Mar 2026</div></div>
+          </div>
+          <div class="txns">
+            <div class="txn"><div class="txn__ico ico-in">↗</div><div><div class="txn__name">Salary — Acme Ltd</div><div class="txn__cat">Income</div></div><div class="txn__amt amt-in">+₦250,000</div></div>
+            <div class="txn"><div class="txn__ico ico-out">↙</div><div><div class="txn__name">Shoprite</div><div class="txn__cat">Groceries</div></div><div class="txn__amt amt-out">−₦18,400</div></div>
+            <div class="txn"><div class="txn__ico ico-fun">☕</div><div><div class="txn__name">Café Neo</div><div class="txn__cat">Dining out</div></div><div class="txn__amt amt-out">−₦3,200</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Palette:</strong> warm charcoal (green-brown undertone, not blue-navy), warm off-white ink, copper primary, muted sage-green for income, warm rust for spending. All gradients flattened.
+      <strong> Type:</strong> Manrope or keep Inter. Same structural overhaul I did on ClientFlow, but a green/copper identity so the two apps never look alike.
+      <div class="swatches"><span class="sw" style="background:#15171a"></span><span class="sw" style="background:#c8814f"></span><span class="sw" style="background:#83b391"></span><span class="sw" style="background:#d0735a"></span><span class="sw" style="background:#eceae6"></span></div>
+    </div>
+
+  </div>
+  <p class="note" style="margin-top:20px;">Both directions also remove the 👋 emoji, the purple→indigo avatar gradient, the emerald→teal logo gradient, and every decorative gradient — replaced with flat tinted chips and a real hand-drawn mark, like I did for ClientFlow.</p>
+</div>
+</body>
+</html>
